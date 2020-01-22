@@ -17,23 +17,12 @@ namespace ElasticGraph.Services
         {
             this.elasticService = elasticService;
             client = elasticService.GetClient();
-            EnsureIndex(client);
-        }
-
-        private void EnsureIndex(ElasticClient client)
-        {
-            var existingIndex = client.Indices;
-            if (existingIndex.Exists("testindex").Exists)
-            {
-                return;
-            }
-
-            client.Indices.Create("testindex");
+            elasticService.CreateIndex<IngredientModel>(new IngredientModel(), "testindex");
         }
 
         public void AddIngredient(IngredientModel ingredient)
         {
-            var result = client.IndexDocument(ingredient);
+            var result = client.Index(ingredient, i=>i.Index("testindex"));
         }
     }
 }
