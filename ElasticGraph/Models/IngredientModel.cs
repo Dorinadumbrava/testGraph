@@ -10,5 +10,6 @@ namespace ElasticGraph.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Callories { get; set; }
+        public int RecepyId { get; set; }
     }
 }

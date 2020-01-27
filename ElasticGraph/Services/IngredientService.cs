@@ -24,5 +24,15 @@ namespace ElasticGraph.Services
         {
             var result = client.Index(ingredient, i=>i.Index("testindex"));
         }
+
+        public IEnumerable<IngredientModel> GetAll()
+        {
+            var searchResponse = client.Search<IngredientModel>(s => s.Query(q => q.MatchAll()));
+            return searchResponse.Documents.ToList();
+        }
+
+
+
+
     }
 }
